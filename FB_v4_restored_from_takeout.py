@@ -223,7 +223,7 @@ class FB():
         #               4:"Tactics 1+2+3"}
 
         x = self.model.addVars([i for i in self.channels], vtype = gp.GRB.BINARY,name = "open")
-        e = self.model.addVars([i for i in self.channels],lb = 0, ub = self.employee_ub, vtype = gp.GRB.CONTINUOUS, name = "work_hours")
+        e = self.model.addVars([i for i in self.channels],lb = 8, ub = self.employee_ub, vtype = gp.GRB.CONTINUOUS, name = "work_hours")
         s = self.model.addVars([i for i in self.channels], lb = 0, ub = self.supply_ub, vtype = gp.GRB.CONTINUOUS, name = "supply")
         v = self.model.addVars([i for i in self.channels], lb = 0, vtype = gp.GRB.CONTINUOUS, name = "served")
            
@@ -234,8 +234,8 @@ class FB():
             a = self.model.addVar(vtype = gp.GRB.CONTINUOUS, lb = self.A,ub = self.A, name = "productivity_factor")
         # C: the average cost of one unit supply in operation i
         # P: the price of menu item in operation i 
-        c = self.model.addVars([i for i in self.channels], lb = 0, vtype = gp.GRB.CONTINUOUS, name = "supply_cost")
-        p = self.model.addVars([i for i in self.channels], lb = 0, vtype = gp.GRB.CONTINUOUS, name = "menu_price")
+        c = self.model.addVars([i for i in self.channels], lb = 0, ub = 32, vtype = gp.GRB.CONTINUOUS, name = "supply_cost")
+        p = self.model.addVars([i for i in self.channels], lb = 0, ub = 100, vtype = gp.GRB.CONTINUOUS, name = "menu_price")
   
         # auxillary variables
         z_1 = self.model.addVar(vtype = gp.GRB.CONTINUOUS, name = "employee_aux_for_pf")
